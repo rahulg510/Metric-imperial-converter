@@ -1,11 +1,3 @@
-/*
-*
-*
-*       Complete the API routing below
-*
-*
-*/
-
 'use strict';
 
 var expect = require('chai').expect;
@@ -20,11 +12,20 @@ module.exports = function (app) {
       var input = req.query.input;
       var initNum = convertHandler.getNum(input);
       var initUnit = convertHandler.getUnit(input);
+      if(initNum == 'Invalid Number' && initUnit == 'Invalid Unit'){
+        res.send("invalid number and unit");
+      }
+      else if(initNum == 'Invalid Number'){
+        res.send("invalid number");
+      }
+      else if(initUnit == 'Invalid Unit'){
+        res.send("invalid unit");
+      }
       var returnNum = convertHandler.convert(initNum, initUnit);
       var returnUnit = convertHandler.getReturnUnit(initUnit);
       var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
       
-      //res.json
+      res.json(toString);
     });
     
 };
