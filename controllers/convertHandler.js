@@ -1,46 +1,37 @@
-/*
-*
-*
-*       Complete the handler logic below
-*       
-*       
-*/
 
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    var regexStr = input.match(/[a-z]+|[^a-z]+/gi);
-    return parseFloat(regexStr[0]) || "Invalid Number";
-    
-  };
+    if(input){
+    var regexStr = input.match(/[a-z]+|[^ a-z]+/gi);
+    var num = regexStr[0];
+    if(regexStr.length == 1){
+      return getUnit(regexStr[0]) == 'Invalid Unit' ? "Invalid Number" : 1;
+    }
+    else{
+      var oper = parseFloat(regexStr[0]);
+      if(oper == NaN) return "Invalid Number";
+      var deno = (function() {
+        if(num.indexOf('/') > 0){
+             return parseFloat(num.substring(num.indexOf('/')+1)); 
+       }}()) || 1;
+     return oper/deno;
+    }
+  }
+  return 'Invalid Number';
+};
   
   this.getUnit = function(input) {
-    var regexStr = input.match(/[a-z]+|[^a-z]+/gi);
-    return spellitOut(regexStr[1]);
+    if(input){
+    var regexStr = input.match(/[a-z]+|[^ a-z]+/gi);
+    return getUnit(regexStr[regexStr.length-1]);
   
-  };
+  }
+  return "Invalid Unit";
+};
   
-  this.getReturnUnit = function(initUnit) {
+  function getUnit(initUnit){
 
-  switch(initUnit){
-    case 'miles':
-      return 'kilometers';
-    case 'kilometers':
-      return 'miles';
-    case 'pounds':
-      return 'kilograms';
-    case 'kilorgrams':
-      return 'pounds';
-    case 'gallons':
-      return 'liters';
-    case 'liters':
-      return 'gallons';
-
-    }
-  };
-
- function spellitOut (initUnit) {
-    var result;
     if(initUnit == 'mi' || initUnit == 'miles' || initUnit == 'mile'){
       result = 'miles';
      }
@@ -63,7 +54,28 @@ function ConvertHandler() {
       result = "Invalid Unit";
     }
       return result;
+  }
+
+  this.getReturnUnit = function(initUnit) {
+    switch(initUnit){
+      case 'miles':
+        return 'kilometers';
+      case 'kilometers':
+        return 'miles';
+      case 'pounds':
+        return 'kilograms';
+      case 'kilorgrams':
+        return 'pounds';
+      case 'gallons':
+        return 'liters';
+      case 'liters':
+        return 'gallons';
+      default: 
+        return 'Invalid Unit';
+  
+      }
   };
+
   
   this.convert = function(initNum, initUnit) {
     var result;
@@ -98,9 +110,9 @@ function ConvertHandler() {
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
     var result = {initNum:  initNum,
                   initUnit: initUnit,
-                  returnNum: returnNum,
+                  returnNum: returnNum.toFixed(5),
                   returnUnit: returnUnit, 
-                  string: "\'" + initNum + initUnit + "converts to " + returnNum + " " + returnUnit + "\'"
+                  string: "\'" + initNum + ' ' + initUnit + " converts to " + returnNum.toFixed(5) + " " + returnUnit + "\'"
   }
   return result;
 }

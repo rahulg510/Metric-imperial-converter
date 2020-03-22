@@ -21,11 +21,13 @@ module.exports = function (app) {
       else if(initUnit == 'Invalid Unit'){
         res.send("invalid unit");
       }
+      else{
       var returnNum = convertHandler.convert(initNum, initUnit);
       var returnUnit = convertHandler.getReturnUnit(initUnit);
       var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
       
       res.json(toString);
+      }
     });
     
 };

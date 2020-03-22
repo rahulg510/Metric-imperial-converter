@@ -1,17 +1,9 @@
-/*
-*
-*
-*       FILL IN EACH UNIT TEST BELOW COMPLETELY
-*       -----[Keep the tests in the same order!]----
-*       (if additional are added, keep them at the very end!)
-*/
 
 var chai = require('chai');
 var assert = chai.assert;
 var ConvertHandler = require('../controllers/convertHandler.js');
 
 var convertHandler = new ConvertHandler();
-
 suite('Unit Tests', function(){
   
   suite('Function convertHandler.getNum(input)', function() {
@@ -23,8 +15,9 @@ suite('Unit Tests', function(){
     });
     
     test('Decimal Input', function(done) {
-      
-      //done();
+     var input = '2.3mi';
+     assert.equal(convertHandler.getNum(input),2.3);
+     done();
     });
     
     test('Fractional Input', function(done) {
@@ -54,7 +47,7 @@ suite('Unit Tests', function(){
     test('For Each Valid Unit Inputs', function(done) {
       var input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele) {
-        //assert
+        assert.equal(convertHandler.getUnit(ele),)
       });
       done();
     });
