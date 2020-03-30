@@ -4,16 +4,20 @@ function ConvertHandler() {
   this.getNum = function(input) {
     if(input){
     var regexStr = input.match(/[a-z]+|[^ a-z]+/gi);
-    var num = regexStr[0];
     if(regexStr.length == 1){
       return getUnit(regexStr[0]) == 'Invalid Unit' ? "Invalid Number" : 1;
     }
     else{
+      var num = regexStr[0];
       var oper = parseFloat(regexStr[0]);
       if(oper == NaN) return "Invalid Number";
+      let index = num.indexOf('/');
+      let index2 = num.indexOf('/',index+1);
+      console.log(index2);
+      if(index2>0) return "Invalid Number";
       var deno = (function() {
-        if(num.indexOf('/') > 0){
-             return parseFloat(num.substring(num.indexOf('/')+1)); 
+        if(index > 0){
+            return parseFloat(num.substring(num.indexOf('/')+1)); 
        }}()) || 1;
      return oper/deno;
     }
@@ -24,30 +28,29 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     if(input){
     var regexStr = input.match(/[a-z]+|[^ a-z]+/gi);
-    return getUnit(regexStr[regexStr.length-1]);
-  
+    return getUnit(regexStr[regexStr.length-1]);  
   }
   return "Invalid Unit";
 };
   
   function getUnit(initUnit){
 
-    if(initUnit == 'mi' || initUnit == 'miles' || initUnit == 'mile'){
+    if(initUnit == 'mi' || initUnit=='MI' || initUnit == 'miles' || initUnit == 'mile'){
       result = 'miles';
      }
-    else if(initUnit == 'km' || initUnit == 'kilometers' || initUnit == 'kilometer'){
+    else if(initUnit == 'km' || initUnit=='KM' ||  initUnit == 'kilometers' || initUnit == 'kilometer'){
       result = 'kilometers';
      }
-    else if(initUnit == 'kg' || initUnit == 'kilograms' || initUnit == 'kilogram'){
+    else if(initUnit == 'kg' || initUnit=='KG' || initUnit == 'kilograms' || initUnit == 'kilogram'){
       result = 'kilograms';
       }
-    else if(initUnit == 'lb' || initUnit == 'pounds' || initUnit == 'pound'){
+    else if(initUnit == 'lb' || initUnit=='LB' || initUnit == 'lbs' || initUnit == 'LBS' || initUnit == 'pounds' || initUnit == 'pound'){
       result = 'pounds';
      }
-    else if(initUnit == 'gal' || initUnit == 'gallons' || initUnit == 'gallons'){
+    else if(initUnit == 'gal' || initUnit=="GAL" || initUnit == 'gallons' || initUnit == 'gallons'){
       result = 'gallons';
     }
-    else if(initUnit == 'l' || initUnit == 'liters' || initUnit == 'liter'){
+    else if(initUnit == 'l' || initUnit == "L" || initUnit == 'liters' || initUnit == 'liter'){
       result = 'liters';
     }
     else{

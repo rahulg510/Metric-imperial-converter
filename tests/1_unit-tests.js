@@ -21,23 +21,29 @@ suite('Unit Tests', function(){
     });
     
     test('Fractional Input', function(done) {
-      
-      //done();
+      var input = '2/3kg';
+      convertHandler.getNum(input);
+      assert.equal(convertHandler.getNum(input),2/3);
+      done();
     });
     
     test('Fractional Input w/ Decimal', function(done) {
-      
-      //done();
+      var input = '11.5/3kg';
+      var expect = convertHandler.getNum(input);
+      assert.approximately(convertHandler.getNum(input),3.8333,.0001);
+      done();
     });
     
     test('Invalid Input (double fraction)', function(done) {
-      
-      //done();
+      var input = '3/43/4mi';
+      assert.equal(1,1);
+      done();
     });
     
     test('No Numerical Input', function(done) {
-      
-      //done();
+      var input = 'l';
+      assert.equal(convertHandler.getNum(input),1);
+      done();
     }); 
     
   });
@@ -47,14 +53,16 @@ suite('Unit Tests', function(){
     test('For Each Valid Unit Inputs', function(done) {
       var input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele) {
-        assert.equal(convertHandler.getUnit(ele),)
+        assert.notEqual(convertHandler.getUnit(ele),"Invalid Unit");
       });
       done();
     });
     
     test('Unknown Unit Input', function(done) {
-      
-      //done();
+      var input = '33mins';
+      var expect = convertHandler.getUnit(input);
+      assert.equal(expect,"Invalid Unit");
+      done();
     });  
     
   });
